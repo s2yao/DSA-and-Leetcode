@@ -1,0 +1,140 @@
+def number_to_binary(number, length=0):
+    """
+    Converts an integer to a binary string with optional zero padding.
+
+    Args:
+        number (int): The number to convert to binary.
+        length (int): Minimum length of the resulting binary string; padded with zeros if necessary.
+
+    Returns:
+        str: The binary representation of the number.
+    """
+    # Convert the number to binary, remove the '0b' prefix added by bin(), and handle negative numbers
+    if number < 0:
+        number = (1 << length) + number  # Two's complement for negative numbers
+    binary_str = bin(number & (2**length - 1))[2:]  # Remove '0b' and mask to desired length
+
+    # Pad the binary string with leading zeros if necessary
+    binary_str = binary_str.zfill(length)
+
+    return binary_str
+
+def convert(opcode, one, two, three):
+    ret = ""
+    if opcode == "add":
+        ret += "000000 "  # Opcode
+        ret += number_to_binary(two, 5) + " "  # rs
+        ret += number_to_binary(three, 5) + " "  # rt
+        ret += number_to_binary(one, 5) + " "  # rd
+        ret += "00000 "  # shamt
+        ret += "100000"  # funct
+    elif opcode == "sub":
+        ret += "000000 "
+        ret += number_to_binary(two, 5) + " "
+        ret += number_to_binary(three, 5) + " "
+        ret += number_to_binary(one, 5) + " "
+        ret += "00000 "
+        ret += "100010"
+    elif opcode == "mult":
+        ret += "000000 "
+        ret += number_to_binary(one, 5) + " "  # rs
+        ret += number_to_binary(two, 5) + " "  # rt
+        ret += "00000 00000 "  # rd and shamt
+        ret += "011000"  # funct
+    elif opcode == "multu":
+        ret += "000000 "
+        ret += number_to_binary(one, 5) + " "
+        ret += number_to_binary(two, 5) + " "
+        ret += "00000 00000 "
+        ret += "011001"
+    elif opcode == "div":
+        ret += "000000 "
+        ret += number_to_binary(one, 5) + " "
+        ret += number_to_binary(two, 5) + " "
+        ret += "00000 00000 "
+        ret += "011010"
+    elif opcode == "divu":
+        ret += "000000 "
+        ret += number_to_binary(one, 5) + " "
+        ret += number_to_binary(two, 5) + " "
+        ret += "00000 00000 "
+        ret += "011011"
+    elif opcode == "mfhi":
+        ret += "000000 00000 00000 "
+        ret += number_to_binary(one, 5) + " "
+        ret += "00000 "
+        ret += "010000"
+    elif opcode == "mflo":
+        ret += "000000 00000 00000 "
+        ret += number_to_binary(one, 5) + " "
+        ret += "00000 "
+        ret += "010010"
+    elif opcode == "lis":
+        ret += "000000 00000 00000 "
+        ret += number_to_binary(one, 5) + " "
+        ret += "00000 "
+        ret += "010100"
+    elif opcode == "lw":
+        ret += "100011 "  # Opcode
+        ret += number_to_binary(three, 5) + " "  # Base (rs)
+        ret += number_to_binary(one, 5) + " "  # rt
+        immediate = number_to_binary((0xFFFF & two), 16)
+        ret += immediate
+    elif opcode == "sw":
+        ret += "101011 "
+        ret += number_to_binary(three, 5) + " "
+        ret += number_to_binary(one, 5) + " "
+        immediate = number_to_binary((0xFFFF & two), 16)
+        ret += immediate
+    elif opcode == "slt":
+        ret += "000000 "
+        ret += number_to_binary(two, 5) + " "  # rs
+        ret += number_to_binary(three, 5) + " "  # rt
+        ret += number_to_binary(one, 5) + " "  # rd
+        ret += "00000 "
+        ret += "101010"
+    elif opcode == "sltu":
+        ret += "000000 "
+        ret += number_to_binary(two, 5) + " "
+        ret += number_to_binary(three, 5) + " "
+        ret += number_to_binary(one, 5) + " "
+        ret += "00000 "
+        ret += "101011"
+    elif opcode == "beq":
+        ret += "000100 "  # Opcode
+        ret += number_to_binary(one, 5) + " "  # rs
+        ret += number_to_binary(two, 5) + " "  # rt
+        immediate = number_to_binary((0xFFFF & three), 16)
+        ret += immediate
+    elif opcode == "bne":
+        ret += "000101 "
+        ret += number_to_binary(one, 5) + " "
+        ret += number_to_binary(two, 5) + " "
+        immediate = number_to_binary((0xFFFF & three), 16)
+        ret += immediate
+    elif opcode == "jr":
+        ret += "000000 "
+        ret += number_to_binary(one, 5) + " "  # rs
+        ret += "00000 00000 00000 "  # rt, rd, shamt
+        ret += "001000"  # funct
+    elif opcode == "jalr":
+        ret += "000000 "
+        ret += number_to_binary(one, 5) + " "  # rs
+        ret += "00000 "  # rt
+        ret += "00000 "  # rd ($31 for return address)
+        ret += "00000 "
+        ret += "001001"  # funct
+    else:
+        raise ValueError(f"Unsupported instruction: {opcode}")
+
+    return ret
+
+# Example usage
+instruction = "beq"
+rd = 20
+rs = 12
+rt = 2
+binary_instruction = convert(instruction, rd, rs, rt)
+print(binary_instruction)
+
+

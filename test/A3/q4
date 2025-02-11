@@ -1,0 +1,11 @@
+def star(n, k):
+    if n == k:
+        return 1
+    elif k > n:
+        return 0
+    elif n == 0 or k == 0:
+        return 0
+    else:
+        return (n - 1) * star(n - 1, k) + star(n - 1, k - 1)
+
+print(star(10, 2))
