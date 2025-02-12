@@ -13,17 +13,24 @@ def post_order(curr_node):
     print(curr_node.val)
 
 # Recursive implementations
-def post_order_iterative(curr_node):
-    if not curr_node: return
+def post_order_iterative(root):
+    if not root: return
+    
+    stack = []
+    result = []
+    last_visited = None
+    curr = root
 
-    stack1 = [curr_node]
-    stack2 = []
+    while stack or curr:
+        if curr:
+            stack.append(curr)
+            curr = curr.left  # Keep going left
+        else:
+            peek = stack[-1]  # Look at the top node without popping
+            if peek.right and last_visited != peek.right:
+                curr = peek.right  # Process right subtree if not visited
+            else:
+                result.append(peek.val)  # Add to result (postorder)
+                last_visited = stack.pop()  # Mark as visited
 
-    while stack1:
-        node = stack1.pop()
-        stack2.append(node)
-        if node.left: stack1.append(node.left)
-        if node.right: stack1.append(node.right)
-
-    while stack2:
-        print(stack2.pop().val)
+    print(result)  # No need for reversing!

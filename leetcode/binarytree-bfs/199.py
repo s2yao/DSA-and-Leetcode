@@ -18,8 +18,6 @@ class Solution:
         
         dfs(root, 0)
         return res
-    
-
 
     def rightSideView2(self, root): # This is BFS
         if not root:
