@@ -1,0 +1,37 @@
+Import always goes at the first line
+
+Read question very carefully
+
+Printing for loop in reverse order:
+
+```python
+for i in range(10, 0, -1):
+# prints from 10 to 1
+for i in reversed(range(1, 11))
+# also prints from 10 to 1
+```
+
+Whenever doing a loop inside a loop, use a different various
+
+```python
+
+for i in range(10):
+	for j in range(10):
+# do this, dont have 2 "i"s
+```
+
+When having a “success” case in a loop, remember to manually adjust the position of index
+
+When doing a while loop, remember to update the index
+
+When looping a linked list, remember to update the looper
+
+fast and slow pointer will put slow ptr to the middle of the linked list
+
+use 3 ptrs to reverse a LL
+
+when a function is defined within an outer function, the inner function can only access the variables defined in the outter function scope.
+
+- if inner function wants to alter variables, use a “mutable container” (list of length 1)
+
+[Tree](https://www.notion.so/Tree-191510766b4580478f48f4498a2e872a?pvs=21)

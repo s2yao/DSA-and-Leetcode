@@ -1,3 +1,6 @@
+'''
+Fast and slow pointer
+'''
 def moveZeroes(nums):
     posn_to_write = 0
     

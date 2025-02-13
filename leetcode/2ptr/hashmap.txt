@@ -1,0 +1,39 @@
+Consider it has a cabinet with multiple drawers
+
+Where each drawer have a label saying whats inside
+
+This concept of cabinet system is achieved called a hash function
+
+- Takes an argument and translate it to an index in O(1)
+
+Key must be unique and immutable
+
+When encountered collision of values from hash function
+
+- Option 1: We store all the values into that index
+- Option 2: Rehashing
+    - When will collision happen
+        - Every pieces of data is transformed into an integer
+        - What is typically done for this is to multiple each digit with a prime number to the index power
+        - “abc” → ‘a’ * 31^3 + ‘b’ * 31^2 + ‘c’ * 31^1
+    - What is rehashing
+        - When all of the “drawers” are filled with element, its important that we extend it in order to prevent more collision
+
+Note that hashmap’s memory is not stored contiguously in memory, and could result in more memory usage
+
+When Collisions happen way too often, your hash function probably sucks
+
+To set a good load factor
+
+$$
+\text{Load factor} = \frac{\text{Items in table}}{\text{Size of table}}
+$$
+
+Typically around 70% is good
+
+To ensure an evenly distributed internal array (The drawer)
+
+- Chaining — To link all the element that hashes into the same index in hash function
+    - May use more memory
+- Open addressing — probing function
+    - Having an extra probing function to increment the index by a specific number, then use modulo to restrict the index within the range of internal array

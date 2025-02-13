@@ -1,3 +1,8 @@
+'''
+The key is to start from both side with left, right indexes, 
+and that the higher the left and right bar is, 
+the better chance that the container area be the largest
+'''
 def maxArea(height):
     left = 0
     right = len(height) - 1
