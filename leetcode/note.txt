@@ -34,4 +34,3 @@ when a function is defined within an outer function, the inner function can only
 
 - if inner function wants to alter variables, use a “mutable container” (list of length 1)
 
-[Tree](https://www.notion.so/Tree-191510766b4580478f48f4498a2e872a?pvs=21)
