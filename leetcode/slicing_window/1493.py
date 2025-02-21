@@ -1,6 +1,8 @@
 '''
 The key is to keep track of the number of 1s on left side and on right side
 Always remember the edge cases and their potential effects
+
+If every element is 1, we check if final return value is equal to the length of the array
 '''
 from typing import List
 
