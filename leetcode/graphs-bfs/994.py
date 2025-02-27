@@ -4,61 +4,68 @@ class Solution(object):
         :type grid: List[List[int]]
         :rtype: int
         """
-        ### Observations
-        # if there is no orange in the first place
-        # we return -1 if there are still left over orange
 
-        # Since its not gonna be one orange rotten all the way through
-        # Sounds like a bfs
-        # Init a queue storing all the rotten orange location
-        rotten_orange = deque()
+        # We need to keep track of the total number of orange
+        total_oranges_count = 0
+        # We need to keep track of the number of rotten orange
+        rotten_orange_count = 0
 
-        # Init the total fresh orange count
-        fresh_orange_count = 0
+        # A queue that stores only rotten oranges
+        rotten_orange = deque() # stores tuple of (row, col)
 
-        # Iteration on the entire matrix
-        for row in range(len(grid)):
-            for col in range(len(grid[row])):
-                # Updating the matrix, fresh orange count
-                if grid[row][col] == 1:
-                    fresh_orange_count += 1
-                
+        for row in len(grid):
+            for col in len(grid[row]):
+                # if orange is rotten, 
                 if grid[row][col] == 2:
+                    # store it into the queue
                     rotten_orange.append((row, col))
-                
-        # If there is no fresh orange
-        if fresh_orange_count == 0:
-            return 0
-        
-        # Number of minutes taken init
-        minutes = 0
-        directions = [(0, 1), (0, -1), (-1, 0), (1, 0)]
+                    # update number of rotten orange
+                    rotten_orange_count += 1
 
-        # Perform bfs
-        # While there is still rotten orange left
-        # We can end early if fresh_orange_count reaches 0
-        while rotten_orange and fresh_orange_count > 0:
-            # Number of minutes taken update
+                # if orange is fresh or rotten, increment the total number of orange
+                if grid[row][col] != 0:
+                    total_oranges_count += 1
+        
+        if total_oranges_count == rotten_orange: # no fresh orange
+            return 0
+
+        # Now we have total orange count
+        # and location of rotten oranges
+
+        # init minutes
+        minutes = 0
+
+        # init directions
+        directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+
+        while queue and total_oranges_count > 0:
+            # if there are still rotten oranges and fresh oranges in this cycle
+            # increment the minutes
             minutes += 1
 
-            # Current layer of rotten orange
-            for _  in range(len(rotten_orange)):
-                # pop the rotten orange
-                curr_rotten_orange = rotten_orange.popleft()
-                curr_rotten_orange_row, curr_rotten_orange_col = curr_rotten_orange
 
-                # if its surrounding is fresh orange, considering the bound, rot it
-                for curr_dir in directions:
-                    orange_check_row = curr_rotten_orange_row + curr_dir[0]
-                    orange_check_col = curr_rotten_orange_col + curr_dir[1]
-                    if orange_check_row >= 0 and orange_check_row < len(grid) and \
-                        orange_check_col >= 0 and orange_check_col < len(grid[orange_check_row]) and \
-                        grid[orange_check_row][orange_check_col] == 1:
-                            # update fresh orange count 
-                            grid[orange_check_row][orange_check_col] = 2
-                            fresh_orange_count -= 1
-                    
-                            # add to the queue
-                            rotten_orange.append((orange_check_row, orange_check_col))
-            
-        return minutes if fresh_orange_count == 0 else -1
+            # iteration through the entire layer of rotten oranges
+            for _ in range(len(rotten_orange))
+                # get the leftmost element
+                curr_orange_row, curr_orange_col = rotten_orange.popleft()
+
+                # for 4 directions
+                for u, v in directions:
+                    # if curr_orange is not rotten
+                    curr_dir_row = curr_orange_row + u
+                    curr_dir_col = curr_orange_col + v
+                    if grid[curr_dir_row][curr_dir_col] != 2:
+                        rotten_orange_count += 1
+                        grid[curr_orange_row + u][curr_orange_col + v] = 2 # Curr dir orange becomes rotten
+                        rotten_orange.append([curr_orange_row + u], [curr_orange_col + v]) 
+        
+        if rotten_orange_count != total_oranges_count:
+            return -1
+        return minutes
+        
+
+
+
+
+        
+

@@ -1,24 +1,15 @@
-edges = [[0, 1], [1, 2], [2, 0], [2, 3]]
+matrix = [
+    [0, 1, 0, 0],
+    [1, 0, 1, 0],
+    [0, 1, 0, 1],
+    [0, 0, 1, 0]
+]
 
-# using set to store tuple
-# O1 looking up edge
-def directed_graph_from_edges_set(edges):
-    directed = set()
+def matrix_edges_to_dict(edges):
+    directed = defaultdict(set)
 
-    for edge in edges:
-        directed.add((edge[0], edge[1]))
-    
-directed_graph_from_edges(edges)
-
-# using dictionary to store value
-# O1 looking up edges connecting the current node
-def directed_graph_from_edges_set(edges):
-    directed = defaultdict(list)
-
-    for edge in edges:
-        directed[edge[0]].append(edge[1])
-
-
-
-# How about undirected?
-
+    for row in edges:
+        for col in edges[row]:
+            if directed[row][col] == 1:
+                directed[row].add(col)
+                # directed[col].add(row)
