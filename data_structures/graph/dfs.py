@@ -7,4 +7,19 @@ def dfs(graph, start_pt):
         if node not in visited:
             visited.add(node)
             print(node)
-            stack.extend(graph.get(node, []))
+            for neighbor in graph[node]:
+                if neighbor not in visited:
+                    stack.append(neighbor)
+
+# Recursion approach
+def dfs(graph, start):
+    visited = set()
+    
+    def dfs_visit(node):
+        if node not in visited:
+            print(node)  # Process the node
+            visited.add(node)
+            for neighbor in graph[node]:
+                dfs_visit(neighbor)
+    
+    dfs_visit(start)

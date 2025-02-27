@@ -1,3 +1,4 @@
+# Iterative
 from collections import deque
 def bfs(graph, start):
     queue = deque([start])
@@ -8,4 +9,8 @@ def bfs(graph, start):
         if node not in visited:
             visited.add(node)
             print(node)
-            queue.extend(graph.get(node, []))
+            for neighbor in graph[node]:
+                if neighbor not in visited:
+                    queue.append(neighbor)
+
+

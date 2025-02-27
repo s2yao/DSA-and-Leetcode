@@ -27,7 +27,3 @@ class Solution(object):
 
         traversal(root, 1)
         return ret
-
-
-
-        

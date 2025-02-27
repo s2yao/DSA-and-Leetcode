@@ -27,7 +27,3 @@ class Solution(object):
             temp = temp.next
 
         return ret
-
-        
-
-
