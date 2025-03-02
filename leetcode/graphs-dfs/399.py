@@ -1,3 +1,11 @@
+'''
+Turning a graph into dictionary representation (directed on both side)
+
+In the queue, we store both the length and the current element
+Then use graph stored in dictionary to find the next edge to calculate
+Until we have found it
+'''
+
 from collections import defaultdict, deque
 
 class Solution(object):

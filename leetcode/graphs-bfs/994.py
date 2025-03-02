@@ -1,3 +1,8 @@
+'''
+Layer processing of bfs algorithm
+
+Initalization of directions
+'''
 class Solution(object):
     def orangesRotting(self, grid):
         """
@@ -43,7 +48,6 @@ class Solution(object):
             # increment the minutes
             minutes += 1
 
-
             # iteration through the entire layer of rotten oranges
             for _ in range(len(rotten_orange))
                 # get the leftmost element
@@ -62,10 +66,3 @@ class Solution(object):
         if rotten_orange_count != total_oranges_count:
             return -1
         return minutes
-        
-
-
-
-
-        
-
