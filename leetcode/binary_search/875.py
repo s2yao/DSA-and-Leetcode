@@ -26,3 +26,5 @@ class Solution(object):
                 high = speed_guess - 1
         
         return low
+        
+        return low
