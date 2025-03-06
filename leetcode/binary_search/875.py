@@ -11,20 +11,21 @@ Whenever we are doing binary search
 '''
 class Solution(object):
     def minEatingSpeed(self, piles, h):
-        low = 1
-        high = max(piles)
+        left = 0
+        right = len(piles) - 1
 
-        while low <= high:
-            speed_guess = (low + high) // 2
-            # how many hours current eating speed is needed to finish banana
-            curr_hour = sum((pile + speed_guess - 1) // speed_guess for pile in piles)
+        while left <= right:
+            curr_speed = (left + right) // 2
+            # what is the time taken to finish all the piles
+            time_taken = sum((pile + curr_speed - 1) // curr_speed for pile in piles)
 
-            if curr_hour > h:
-                # the current speed is too low
-                low = speed_guess + 1
+            if time_taken > h: # if the time taken is too long, we increase the speed
+                left = curr_speed + 1
             else:
-                high = speed_guess - 1
-        
-        return low
-        
-        return low
+                right = curr_speed - 1
+
+        return left
+
+lst = [30,11,23,4,20]
+guess = 15
+print([(element + guess - 1) // guess for element in lst])
