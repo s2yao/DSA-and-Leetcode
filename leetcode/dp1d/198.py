@@ -1,3 +1,6 @@
+'''
+Using dp array to store the maximum from 0 to i - 1
+'''
 class Solution(object):
     def rob(self, nums):
         """
@@ -17,6 +20,29 @@ class Solution(object):
             dp[i + 1] = max(dp[i - 1] + nums[i], dp[i])
         
         return dp[-1]
+
+'''
+It seems like we only need to record:
+The current maximum
+The prev maximum
+
+and if current maximum is > prev + current number
+
+we replace the curr_max with prev + current num
+'''
+    def rob2(self, nums):
+        if len(nums) == 0:
+            return 0
+        
+        curr_max = 0
+        prev_max = 0
+
+        for num in nums:
+            temp = curr_max
+            curr_max = max(curr_max, prev_max + num)
+            prev_max = temp
+        
+        return curr_max
 
 
 
