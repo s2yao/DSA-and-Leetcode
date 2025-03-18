@@ -12,4 +12,4 @@ with open("violator_name.txt", "r") as file:
 
 # Example output of the violators dictionary
 print(violators_dict)
-print(f"Name: {violators_dict['lala']}")
+print(f"Cecilia_shenzhen: {violators_dict['Cecilia_shenzhen']}")

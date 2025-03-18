@@ -23,5 +23,3 @@ class Solution(object):
         
         traversal(root, 0)
         return self.ret
-        
-

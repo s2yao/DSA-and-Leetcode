@@ -49,7 +49,7 @@ class Solution(object):
                             curr_dir_row == 0 or curr_dir_row == len(maze) - 1 or \
                             curr_dir_col == 0 or curr_dir_col == len(maze[curr_dir_row]) - 1:
                             return layers
-                        
+
                         # Mark the cell as visited and add to queue
                         maze[curr_dir_row][curr_dir_col] = "+"
                         queue.append((curr_dir_row, curr_dir_col))

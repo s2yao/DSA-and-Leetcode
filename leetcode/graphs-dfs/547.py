@@ -11,7 +11,7 @@ class Solution(object):
         """
         # Look for province
         # no city --  0 province
-        if isConnected == []:
+        if not isConnected:
             return 0
         
         # Set to avoid revisit
