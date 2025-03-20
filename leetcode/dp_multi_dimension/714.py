@@ -15,3 +15,24 @@ class Solution(object):
              d[i][1] = max(d[i-1][1], d[i-1][0] - prices[i] - fee) # 能不能以更低的价格买下当前股票
              # 可怕
         return d[n-1][0]
+
+
+    def maxProfit2(self, prices, fee):
+        """
+        :type prices: List[int]
+        :type fee: int
+        :rtype: int
+        """
+        min_price = float('inf')
+        max_profit = 0
+
+        for price in prices:
+            # we treat the stock price as a pattern of low -- high -- low -- high ...
+            # And every time we see a potential max_profit we add it
+            if price < min_price:
+                min_price = price
+            if price - min_price - fee > 0:
+                max_profit += price - min_price - fee
+                min_price = price - fee # Since we have already calculated a fee in previous transaction
+
+        return max_profit 

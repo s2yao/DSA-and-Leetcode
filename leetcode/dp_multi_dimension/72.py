@@ -7,7 +7,6 @@ And that if 2 element equals, we just skip to next character for both word1 and 
 
 The "set up" of the problem
 '''
-
 class Solution(object):
     def minDistance(self, word1, word2):
         """
@@ -24,10 +23,11 @@ class Solution(object):
             dp[j][len(word1)] = len(word2) - j
 
 
-        for i in reversed(len(word1)): # (len(word1) - 1) to 0
-            for j in reversed(len(word2)):
-                if word1[i] == word2[j]:
-                    dp[i][j] = min(dp[i + 1][j], dp[i][j + 1], dp[i + 1][j + 1])
+        for i in reversed(range(len(word2))): # (len(word1) - 1) to 0
+            for j in reversed(range(len(word1))):
+                if word1[j] == word2[i]:
+                    dp[i][j] = dp[i + 1][j + 1]
+
                 else:
                     dp[i][j] = 1 + min(dp[i + 1][j], dp[i][j + 1], dp[i + 1][j + 1])
 
